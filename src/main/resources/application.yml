@@ -1,0 +1,23 @@
+server:
+  servlet:
+    context-path: /api/creepy/
+
+spring:
+  profiles:
+    active: oauth-security
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/creepy?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: docker
+
+
+
+
+  jackson:
+    date-format: yyyy-MM-dd
+
