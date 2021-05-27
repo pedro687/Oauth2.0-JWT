@@ -1,4 +1,4 @@
-package com.spiet.creepy.config;
+package com.spiet.creepy.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +16,5 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
 }
