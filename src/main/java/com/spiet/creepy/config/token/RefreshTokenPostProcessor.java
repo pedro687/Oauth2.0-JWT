@@ -1,4 +1,4 @@
-package com.spiet.creepy.token;
+package com.spiet.creepy.config.token;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

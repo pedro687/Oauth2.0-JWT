@@ -25,7 +25,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("angular")
-                .secret("{noop}secret")
+                .secret("$2a$10$y0DkWDPescseN3lENk7HM.frJhdkEX3v.CaJtOwnfXf9mtpNQAts6") //react123
                 .scopes("read", "write")
                 .authorizedGrantTypes("password", "refresh_token")
                 .accessTokenValiditySeconds(1800)

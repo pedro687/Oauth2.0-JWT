@@ -1,6 +1,5 @@
-package com.spiet.creepy.token;
+package com.spiet.creepy.config.token;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.util.ParameterMap;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -10,7 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
