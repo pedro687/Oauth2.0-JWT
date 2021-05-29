@@ -26,7 +26,7 @@ public class Users {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "User_permissions",
+    @JoinTable(name = "user_permissions",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_permission"))
     private List<Permissions> permissions;

@@ -16,7 +16,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     protected static final String[] WHITELIST = {
             "/h2-console/**",
-            "/login",
+            "/users/login",
+            "/users/register",
             "/v2/api-docs",
             "/configuration/ui",
             "/swagger-resources/**",
