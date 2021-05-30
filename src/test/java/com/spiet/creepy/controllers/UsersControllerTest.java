@@ -2,36 +2,33 @@ package com.spiet.creepy.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spiet.creepy.dtos.UsersDTO;
+import com.spiet.creepy.models.Users;
+import com.spiet.creepy.repositories.UserRepository;
 import com.spiet.creepy.services.IUsersService;
-import com.spiet.creepy.services.impl.UserService;
 import com.spiet.creepy.utils.UsersConverter;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import java.util.Optional;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
@@ -39,6 +36,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public class UsersControllerTest {
 
     static String BASE_URL = "/users";
+    static String OAUTH_URL = "/oauth/token";
 
     @MockBean
     IUsersService service;
@@ -50,14 +48,25 @@ public class UsersControllerTest {
     UsersConverter usersConverter;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     ObjectMapper mapper;
+
+    @Autowired
+    PasswordEncoder passwordEncode;
 
     public UsersDTO createUserDTO() {
         UsersDTO userDTO = new UsersDTO();
         userDTO.setEmail("JonDoe@email.com");
         userDTO.setUsername("Jon Doe");
-        userDTO.setPassword("12345");
+        userDTO.setPassword(passwordEncode.encode("12345"));
         return userDTO;
+    }
+
+    @BeforeEach
+    public void setUp() {
+        service.createUser(createUserDTO());
     }
 
     @Test
@@ -77,5 +86,25 @@ public class UsersControllerTest {
             mvc.perform(req)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("username").value(createUserDTO().getUsername()));
+    }
+
+    @Test
+    @DisplayName("Deve efetuar login")
+    void shouldLogin() throws Exception{
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "password");
+        params.add("client", "angular");
+        params.add("username", createUserDTO().getEmail());
+        params.add("password", "12345");
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.post(OAUTH_URL)
+                .params(params)
+                .with(httpBasic("angular","react123"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        var result = mvc.perform(req)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("access_token").exists());
     }
 }
