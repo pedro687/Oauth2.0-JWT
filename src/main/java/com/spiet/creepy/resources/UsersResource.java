@@ -13,8 +13,8 @@ import javax.validation.Valid;
 public interface UsersResource {
 
     @PostMapping("/register")
-    public ResponseEntity<?> create(@RequestBody @Valid UsersDTO userDTO);
+    ResponseEntity<?> create(@RequestBody @Valid UsersDTO userDTO);
 
     @GetMapping("/bla")
-    public ResponseEntity<String> test();
+    ResponseEntity<String> test();
 }

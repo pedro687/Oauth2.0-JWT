@@ -1,5 +1,6 @@
 package com.spiet.creepy;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,4 +11,8 @@ class CreepyApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void test() {
+        Assertions.assertEquals(1, 1);
+    }
 }
