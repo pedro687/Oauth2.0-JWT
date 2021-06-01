@@ -35,6 +35,10 @@ public class UserService implements IUsersService {
 
     @Override
     public UsersDTO createUser(UsersDTO usersDTO) {
+        if (usersDTO.getSexo() != 'M' || usersDTO.getSexo() != 'F'  || usersDTO.getSexo() != 'O') {
+            throw new IllegalArgumentException("Invalid Sex");
+        }
+
         if (existsByEmail(usersDTO.getEmail())) {
             log.error("Email já existente na base dados! {}", usersDTO.getEmail());
             throw new EmailAlreadyExistsException("Este Email já pertence a um usuário!");

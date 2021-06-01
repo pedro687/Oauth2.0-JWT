@@ -3,6 +3,7 @@ package com.spiet.creepy.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spiet.creepy.dtos.UsersDTO;
 import com.spiet.creepy.models.Users;
+import com.spiet.creepy.models.enums.GenType;
 import com.spiet.creepy.repositories.UserRepository;
 import com.spiet.creepy.services.IUsersService;
 import com.spiet.creepy.utils.UsersConverter;
@@ -58,9 +59,12 @@ public class UsersControllerTest {
 
     public UsersDTO createUserDTO() {
         UsersDTO userDTO = new UsersDTO();
-        userDTO.setEmail("JonDoe@email.com");
-        userDTO.setUsername("Jon Doe");
+        userDTO.setEmail("pedrospissadsets@gmail.com");
+        userDTO.setUsername("Pedro Emanoel");
         userDTO.setPassword(passwordEncode.encode("12345"));
+        userDTO.setTellphone("13996403088");
+        userDTO.setSexo('M');
+
         return userDTO;
     }
 

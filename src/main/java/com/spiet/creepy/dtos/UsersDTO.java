@@ -1,12 +1,11 @@
 package com.spiet.creepy.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.spiet.creepy.models.enums.GenType;
 import lombok.*;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -23,5 +22,12 @@ public class UsersDTO {
 
     @NotNull
     private String password;
+
+    @NotNull
+    @Size(min = 11, max = 11)
+    private String tellphone;
+
+    @NotNull
+    private Character sexo;
 
 }

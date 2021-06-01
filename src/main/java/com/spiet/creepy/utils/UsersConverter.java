@@ -14,6 +14,8 @@ public class UsersConverter {
         users.setEmail(usersDTO.getEmail());
         users.setUsername(usersDTO.getUsername());
         users.setPassword(usersDTO.getPassword());
+        users.setSexo(usersDTO.getSexo());
+        users.setTellphone(usersDTO.getTellphone());
 
         return users;
     }
@@ -23,6 +25,8 @@ public class UsersConverter {
         usersDTO.setEmail(users.getEmail());
         usersDTO.setUsername(users.getUsername());
         usersDTO.setPassword(users.getPassword());
+        usersDTO.setSexo(users.getSexo());
+        usersDTO.setTellphone(users.getTellphone());
 
         return usersDTO;
     }
